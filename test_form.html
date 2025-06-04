@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Tool Recommendation Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #4a4a4a;
+            --accent-color: #007AFF;
+            --background-color: #ffffff;
+            --text-color: #333333;
+            --border-color: #e5e5e5;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .description-section {
+            background-color: var(--background-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+        .content-section {
+            display: flex;
+            gap: 30px;
+        }
+        .recommendations-section, .tools-section {
+            flex: 1;
+            background-color: var(--background-color);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+        h2 {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0 0 20px 0;
+            letter-spacing: -0.3px;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            font-weight: 400;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(0,122,255,0.1);
+        }
+        .error {
+            color: #dc3545;
+            border: 1px solid #dc3545;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff5f5;
+            font-weight: 500;
+        }
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .category-box {
+            width: 220px;
+            padding: 15px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 4px;
+            transition: all 0.2s ease;
+            letter-spacing: -0.2px;
+        }
+        .category-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .category-box.selected {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .category-box::after {
+            content: '';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 25px;
+            background-color: var(--accent-color);
+        }
+        .category-box:last-child::after {
+            display: none;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        .tool-card {
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .tool-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+            letter-spacing: -0.2px;
+        }
+        .tool-description {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .tool-use-cases {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+        .tool-use-cases span {
+            background-color: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .tool-category {
+            font-size: 0.9em;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-right: 8px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .primary-category {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .related-category {
+            background-color: #f0f0f0;
+            color: var(--secondary-color);
+        }
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60% { content: '...'; }
+            80%, 100% { content: ''; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://simmonsvault.com/wp-content/uploads/2024/02/simmonsvault-logo.png" alt="SimmonsVault Logo" class="logo">
+        <h1>AI Tool Recommendation Test</h1>
+    </div>
+    <div class="description-section">
+        <h2>Describe your project or business for recommended types of AI tool</h2>
+        <div>
+            <textarea id="description" placeholder="Press Enter to get recommendations..."></textarea>
+        </div>
+        <div id="loading" class="loading">Analyzing your request</div>
+    </div>
+    <div class="content-section">
+        <div class="recommendations-section">
+            <h2>Recommended Categories</h2>
+            <div id="result"></div>
+        </div>
+        <div class="tools-section">
+            <h2>AI Tools</h2>
+            <div id="tools"></div>
+        </div>
+    </div>
+    <script>
+        let currentTools = [];
+        document.getElementById('description').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                getRecommendation();
+            }
+        });
+        async function getRecommendation() {
+            const description = document.getElementById('description').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            const toolsDiv = document.getElementById('tools');
+            if (!description.trim()) return;
+            resultDiv.innerHTML = '';
+            toolsDiv.innerHTML = '';
+            resultDiv.className = '';
+            loadingDiv.style.display = 'block';
+            try {
+                const response = await fetch('http://127.0.0.1:49152/recommend', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ description }),
+                });
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                loadingDiv.style.display = 'none';
+                const flowDiagram = document.createElement('div');
+                flowDiagram.className = 'flow-diagram';
+                const categories = data.recommendations
+                    .split('\n')
+                    .filter(line => line.trim())
+                    .map(line => {
+                        const match = line.match(/Category:\s*([^\n]+)/i);
+                        return match ? match[1].trim() : line.trim();
+                    })
+                    .filter(category => category);
+                categories.forEach(category => {
+                    const box = document.createElement('div');
+                    box.className = 'category-box';
+                    box.textContent = category;
+                    box.onclick = () => showToolsForCategory(category);
+                    flowDiagram.appendChild(box);
+                });
+                resultDiv.appendChild(flowDiagram);
+            } catch (error) {
+                loadingDiv.style.display = 'none';
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.className = 'error';
+                console.error('Error details:', error);
+            }
+        }
+        function showToolsForCategory(category) {
+            document.querySelectorAll('.category-box').forEach(box => {
+                box.classList.toggle('selected', box.textContent === category);
+            });
+            fetch('http://127.0.0.1:49152/tools?category=' + encodeURIComponent(category))
+                .then(response => response.json())
+                .then(tools => {
+                    const toolsDiv = document.getElementById('tools');
+                    toolsDiv.innerHTML = '';
+                    if (tools.length === 0) {
+                        toolsDiv.innerHTML = '<p>No tools found for this category.</p>';
+                        return;
+                    }
+                    tools.forEach(tool => {
+                        const toolCard = document.createElement('div');
+                        toolCard.className = 'tool-card';
+                        const categoryClass = tool.relevance_type === 'primary' ? 'primary-category' : 'related-category';
+                        const relevanceText = tool.relevance_type === 'primary' ? 'Primary Category' : 'Related Tool';
+                        toolCard.innerHTML = `
+                            <div class="tool-name">${tool.name}</div>
+                            <div class="tool-category ${categoryClass}">
+                                ${relevanceText}
+                            </div>
+                            <div class="tool-description">${tool.description}</div>
+                            <div class="tool-use-cases">
+                                ${tool.use_cases.map(useCase => `<span>${useCase}</span>`).join('')}
+                            </div>
+                        `;
+                        toolsDiv.appendChild(toolCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching tools:', error);
+                    document.getElementById('tools').innerHTML = '<p class="error">Error loading tools.</p>';
+                });
+        }
+    </script>
+</body>
+</html> 

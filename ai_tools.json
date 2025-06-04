@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Dialogflow",
+    "category": "Chatbot",
+    "description": "Build conversational interfaces for customer support.",
+    "use_cases": ["customer support", "FAQ automation"]
+  },
+  {
+    "name": "Zapier",
+    "category": "Automation",
+    "description": "Automate workflows between apps.",
+    "use_cases": ["order tracking", "email automation"]
+  },
+  {
+    "name": "Midjourney",
+    "category": "Image Generation",
+    "description": "Create high-quality images from text descriptions.",
+    "use_cases": ["marketing visuals", "product design"]
+  },
+  {
+    "name": "Grammarly",
+    "category": "Writing Assistant",
+    "description": "Improve writing with AI-powered suggestions.",
+    "use_cases": ["content creation", "email writing"]
+  },
+  {
+    "name": "Otter.ai",
+    "category": "Transcription",
+    "description": "Convert speech to text with high accuracy.",
+    "use_cases": ["meeting notes", "interview transcription"]
+  },
+  {
+    "name": "Jasper",
+    "category": "Content Creation",
+    "description": "Generate marketing copy and content.",
+    "use_cases": ["blog posts", "social media"]
+  },
+  {
+    "name": "Descript",
+    "category": "Audio Editing",
+    "description": "Edit audio by editing text transcripts.",
+    "use_cases": ["podcast editing", "video production"]
+  },
+  {
+    "name": "Copy.ai",
+    "category": "Copywriting",
+    "description": "Generate marketing copy and content ideas.",
+    "use_cases": ["ad copy", "product descriptions"]
+  },
+  {
+    "name": "Synthesia",
+    "category": "Video Generation",
+    "description": "Create AI-powered video presentations.",
+    "use_cases": ["training videos", "product demos"]
+  },
+  {
+    "name": "Notion AI",
+    "category": "Productivity",
+    "description": "AI-powered writing and organization assistant.",
+    "use_cases": ["note-taking", "project management"]
+  }
+] 
