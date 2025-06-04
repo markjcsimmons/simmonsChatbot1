@@ -28,9 +28,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://simmonsvault.com",
-        "https://www.simmonsvault.com",
-        "https://simmonsvault-*.vercel.app",
-        "http://localhost:3000"
+        "https://www.simmonsvault.com"
     ],
     allow_credentials=True,
     allow_methods=["*"],
