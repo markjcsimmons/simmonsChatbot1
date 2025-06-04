@@ -23,10 +23,15 @@ app = FastAPI(
 # Load environment variables from .env
 load_dotenv()
 
-# Basic CORS configuration
+# CORS configuration with specific origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://simmonsvault.com",
+        "https://www.simmonsvault.com",
+        "https://simmonsvault-*.vercel.app",
+        "http://localhost:3000"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
